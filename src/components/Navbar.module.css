@@ -1,21 +1,40 @@
-.navbar {
+.navbarWrapper {
+  position: sticky;
+  top: 1.5rem;
+  z-index: 100;
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 4rem;
-  background-color: rgba(5, 5, 5, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  border-bottom: 1px solid var(--glass-border);
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.logoText {
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+.logoContainer {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  flex: 1;
+}
+
+.logoImage {
+  display: block;
+  object-fit: contain;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem 2.5rem;
+  background-color: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px; /* Pill shape */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  margin: 0 1.5rem;
 }
 
 .navLinks {
@@ -24,21 +43,84 @@
 }
 
 .link {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: rgba(255, 255, 255, 0.7);
   transition: color 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .link:hover {
-  color: var(--color-white);
+  color: var(--primary-blue);
 }
 
-@media (max-width: 768px) {
+.ctaContainer {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.iconLink {
+  position: relative;
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.iconLink:hover {
+  color: var(--primary-blue);
+  transform: scale(1.05);
+}
+
+.cartBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: var(--primary-blue);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #0a0a0a;
+}
+
+@media (max-width: 1024px) {
   .navbar {
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1.5rem;
+    margin: 0 0.5rem;
   }
   .navLinks {
-    display: none;
+    gap: 1.5rem;
   }
 }
+
+@media (max-width: 850px) {
+  .navbarWrapper {
+    flex-direction: row;
+    padding: 0.5rem 1rem;
+    top: 0;
+    background-color: rgba(10, 10, 10, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .navbar {
+    display: none; /* Hide navigation links pill on smaller viewports */
+  }
+  .logoContainer {
+    flex: unset;
+  }
+  .ctaContainer {
+    flex: unset;
+  }
+}
+

@@ -1,7 +1,12 @@
 import styles from "./page.module.css";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import LogoTicker from "@/components/LogoTicker";
 import AboutSection from "@/components/AboutSection";
+import ScienceSection from "@/components/ScienceSection";
+import EcommerceSection from "@/components/EcommerceSection";
+import ReviewsSection from "@/components/ReviewsSection";
+import AppProgressSection from "@/components/AppProgressSection";
 import TrainingSection from "@/components/TrainingSection";
 import MediaSection from "@/components/MediaSection";
 import AppDownloadSection from "@/components/AppDownloadSection";
@@ -13,7 +18,12 @@ export default function Home() {
       <Navbar />
       <main className={styles.main}>
         <HeroSection />
+        <LogoTicker />
         <AboutSection />
+        <ScienceSection />
+        <EcommerceSection />
+        <ReviewsSection />
+        {/* <AppProgressSection /> */}
         <TrainingSection />
         <MediaSection />
         <AppDownloadSection />

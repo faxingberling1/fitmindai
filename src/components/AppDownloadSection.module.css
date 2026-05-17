@@ -108,31 +108,71 @@
   padding: 2rem 1rem;
 }
 
-.mockupHeader {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
+.statusBar {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 10;
 }
 
-.mockupLogo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  background: linear-gradient(to right, var(--color-white), var(--color-accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.statusIcons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
-.mockupBody {
+.appLogoContainer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
 }
 
-.skeletonBlock {
-  width: 100%;
-  height: 80px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+.appLogo {
+  filter: drop-shadow(0 0 15px rgba(0, 112, 243, 0.4));
+  margin-bottom: 2.5rem;
+  animation: pulse 2.5s infinite ease-in-out;
+}
+
+.appSpinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  border-top-color: var(--primary-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1.5rem;
+}
+
+.appVersion {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 2px;
+  margin-top: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.03); opacity: 1; filter: drop-shadow(0 0 25px rgba(0, 112, 243, 0.6)); }
 }
 
 @media (max-width: 968px) {

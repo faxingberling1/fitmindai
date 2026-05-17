@@ -1,240 +1,391 @@
 .scienceSection {
   padding: 8rem 2rem;
-  background-color: #000;
+  background-color: #050505;
   position: relative;
   overflow: hidden;
-  border-top: 1px solid rgba(0, 112, 243, 0.1);
-  border-bottom: 1px solid rgba(0, 112, 243, 0.1);
+  border-top: 1px solid rgba(0, 112, 243, 0.12);
+  border-bottom: 1px solid rgba(0, 112, 243, 0.12);
 }
 
-.scienceSection::before {
-  content: '';
+.glowOverlay {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  background: var(--primary-blue);
+  filter: blur(140px);
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gridLines {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    linear-gradient(rgba(0, 112, 243, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 112, 243, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  z-index: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.007) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.007) 1px, transparent 1px);
+  background-size: 30px 30px;
   pointer-events: none;
+  z-index: 0;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
   position: relative;
   z-index: 1;
 }
 
+.sectionHeader {
+  text-align: left;
+  margin-bottom: 4rem;
+}
+
 .badge {
   display: inline-block;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--text-gray);
+  padding: 0.4rem 1rem;
+  background: rgba(0, 112, 243, 0.08);
+  border: 1px solid rgba(0, 112, 243, 0.2);
+  color: var(--primary-blue);
   border-radius: 100px;
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.features {
+/* Peptide Tab Navigation Bar */
+.tabWrapper {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 1.5rem;
+  margin-bottom: 3.5rem;
+  overflow-x: auto;
+}
+
+.tabBtn {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-gray);
+  padding: 0.8rem 1.8rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.tabBtn:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.tabBtn.activeTab {
+  background: rgba(0, 112, 243, 0.08);
+  border-color: var(--primary-blue);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(0, 112, 243, 0.1);
+}
+
+/* Interactive Console Split layout */
+.consoleGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.consoleCard,
+.purityCard {
+  padding: 3rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Scientific Specs list */
+.cardHeader h3 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+
+.chemLabel {
+  font-size: 0.85rem;
+  color: var(--text-gray);
+  font-weight: 600;
+}
+
+.structureBadge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  background: rgba(0, 112, 243, 0.08);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.specsList {
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  margin-top: 3rem;
+  gap: 1rem;
 }
 
-.featureItem {
+.specRow {
   display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
-}
-
-.iconContainer {
-  width: 48px;
-  height: 48px;
-  background: rgba(0, 112, 243, 0.1);
-  border: 1px solid rgba(0, 112, 243, 0.2);
-  border-radius: 12px;
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  gap: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-.moleculeIcon, .dnaIcon, .brainIcon {
-  width: 24px;
-  height: 24px;
-  background-color: var(--primary-blue);
-  mask-size: cover;
-  -webkit-mask-size: cover;
-}
-
-/* Fallback simple CSS shapes for icons */
-.moleculeIcon {
-  border-radius: 50%;
-  box-shadow: 8px -8px 0 -8px var(--primary-blue), -8px 8px 0 -8px var(--primary-blue);
-}
-.dnaIcon {
-  width: 10px;
-  border-radius: 10px;
-  box-shadow: 14px 0 0 0 var(--primary-blue);
-}
-.brainIcon {
-  border-radius: 40% 40% 5px 5px;
-}
-
-.featureTitle {
-  font-size: 1.25rem;
+.specName {
+  font-size: 0.85rem;
+  color: var(--text-gray);
   font-weight: 600;
-  color: var(--text-light);
-  margin-bottom: 0.5rem;
 }
 
-.featureText {
+.specVal {
+  font-size: 0.85rem;
+  color: #fff;
+  font-weight: 700;
+  text-align: right;
+  word-break: break-all;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 2rem 0;
+}
+
+.descriptionBox h4,
+.benefitsBox h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+}
+
+.descriptionText {
+  font-size: 0.9rem;
   color: var(--text-gray);
   line-height: 1.6;
 }
 
-.visual {
-  position: relative;
-  height: 500px;
+.benefitsBox {
+  margin-top: 2rem;
+}
+
+.benefitsBox ul {
+  list-style-type: square;
+  padding-left: 1.25rem;
+}
+
+.benefitsBox li {
+  font-size: 0.9rem;
+  color: var(--text-gray);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+/* HPLC Spectrogram Screen styling */
+.hplcDisplay {
+  background: #000;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.5rem;
+  box-shadow: inset 0 0 20px rgba(0, 112, 243, 0.05);
+  margin-bottom: 2rem;
+}
+
+.hplcHeader {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  margin-bottom: 1.5rem;
 }
 
-.dataContainer {
-  position: relative;
-  width: 400px;
-  height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.hplcHeader h4 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.glowingOrb {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-  height: 200px;
-  background: var(--primary-blue);
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.3;
-  animation: pulse 4s ease-in-out infinite;
+.liveStatus {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #00d2ff;
+  letter-spacing: 0.5px;
+  animation: modalPulse 1.5s infinite;
 }
 
-.techGraphic {
+.graphContainer {
   position: relative;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16/7;
+  background: rgba(0, 112, 243, 0.01);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.techCircle1, .techCircle2, .techCircle3 {
+.graphSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.graphLine {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 3s cubic-bezier(0.25, 1, 0.5, 1) forwards infinite;
+}
+
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+.purityLabel {
   position: absolute;
-  border-radius: 50%;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 112, 243, 0.1);
   border: 1px solid rgba(0, 112, 243, 0.3);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #00d2ff;
+  text-transform: uppercase;
 }
 
-.techCircle1 {
-  width: 300px;
-  height: 300px;
-  border-style: dashed;
-  animation: spin 30s linear infinite;
+.hplcFooter {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: var(--text-gray);
+  margin-top: 1rem;
+  font-family: monospace;
 }
 
-.techCircle2 {
-  width: 200px;
-  height: 200px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  animation: spin 20s linear infinite reverse;
-}
-
-.techCircle3 {
-  width: 100px;
-  height: 100px;
-  border: 2px solid rgba(0, 112, 243, 0.5);
-  box-shadow: 0 0 20px rgba(0, 112, 243, 0.2);
-}
-
-.centralCore {
-  position: absolute;
+/* Verification Reports */
+.verificationActions {
+  min-height: 120px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+.reportPanel {
+  animation: fadeIn 0.4s ease;
+}
+
+.reportSuccessHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.successIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 112, 243, 0.1);
+  border: 1px solid var(--primary-blue);
+  color: var(--primary-blue);
+  display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  color: white;
   font-weight: bold;
-  font-size: 1.5rem;
 }
 
-.coreLabel {
+.reportSuccessHeader h5 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.reportSuccessHeader p {
   font-size: 0.75rem;
-  color: var(--primary-blue);
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  color: var(--text-gray);
 }
 
-.dataNode {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: var(--primary-blue);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--primary-blue);
+.reportDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
-.dataNode::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 24px;
-  height: 24px;
-  border: 1px solid rgba(0, 112, 243, 0.5);
-  border-radius: 50%;
-  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+.reportRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.reportRow span:first-child {
+  color: var(--text-gray);
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.9); }
-  50% { opacity: 0.4; transform: translate(-50%, -50%) scale(1.1); }
+.verifiedText {
+  color: #00d2ff;
+  font-weight: 700;
 }
 
-@keyframes ping {
-  75%, 100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 @media (max-width: 968px) {
-  .container {
+  .consoleGrid {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
-  
-  .visual {
-    height: 400px;
-    order: -1;
+  .consoleCard,
+  .purityCard {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .sectionHeader {
+    margin-bottom: 2.5rem;
+  }
+  .tabBtn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  .scienceSection {
+    padding: 4rem 1.5rem;
   }
 }

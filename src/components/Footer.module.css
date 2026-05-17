@@ -74,7 +74,8 @@
 
 .paymentIcon {
   height: 24px;
-  width: auto;
+  width: 38px;
+  flex-shrink: 0;
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }

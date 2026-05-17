@@ -9,37 +9,37 @@ export default function HeroSection() {
       
       <div className={styles.container}>
         <div className={styles.content}>
-          <div className={styles.badge}>The Ultimate Ecosystem</div>
+          <div className={styles.badge}>LEARN • TRAIN • NETWORK</div>
           <h1 className="heading-xl">
-            Train, Connect, <br />
-            <span className="text-gradient">Elevate Life.</span>
+            Master Exercise Execution. <br />
+            <span className="text-gradient">Scale Your Coaching.</span>
           </h1>
-          <p className="text-lg" style={{ marginTop: '1.5rem', marginBottom: '2.5rem', maxWidth: '600px' }}>
-            Whether you're an individual striving for peak health, or a trainer seeking a safe space to coach and network with your followers, FitMind AI is your value-added sanctuary.
+          <p className="text-lg" style={{ marginTop: '1.5rem', marginBottom: '2.5rem', maxWidth: '600px', lineHeight: '1.6' }}>
+            FitMind AI is a dual-force ecosystem: a comprehensive educational training ground for individuals to learn perfect exercise form directly from Coach Donovan Barker, and a cutting-edge business suite empowering professional personal trainers to register, network, and seamlessly coach their followers.
           </p>
           <div className={styles.buttonGroup}>
             <Link href="/waitlist" className="btn-primary">
-              Join the waitlist!
+              Join the Waitlist!
             </Link>
             <Link href="#shop" className="btn-secondary">
-              Shop Performance Gear
+              Explore Performance Shop
             </Link>
           </div>
           
           <div className={styles.statsContainer}>
             <div className={styles.stat}>
-              <span className={styles.statNumber}>Individuals</span>
-              <span className={styles.statLabel}>Train & Improve</span>
+              <span className={styles.statNumber}>Learners</span>
+              <span className={styles.statLabel}>Learn Form & Hypertrophy</span>
             </div>
             <div className={styles.statDivider}></div>
             <div className={styles.stat}>
               <span className={styles.statNumber}>Trainers</span>
-              <span className={styles.statLabel}>Coach & Network</span>
+              <span className={styles.statLabel}>Host Workouts & Scale</span>
             </div>
             <div className={styles.statDivider}></div>
             <div className={styles.stat}>
               <span className={styles.statNumber}>FitMind AI</span>
-              <span className={styles.statLabel}>Value Added Service</span>
+              <span className={styles.statLabel}>Unifying Software Suite</span>
             </div>
           </div>
         </div>

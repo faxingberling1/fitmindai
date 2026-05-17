@@ -12,12 +12,12 @@ export default function AboutSection() {
           </div>
         </div>
         <div className={styles.textContent}>
-          <h2 className="heading-lg">A Safe Space for <span className="text-gradient">Growth</span></h2>
+          <h2 className="heading-lg">An Educational Hub & <span className="text-gradient">Trainer Platform</span></h2>
           <p className="text-lg">
-            FitMind AI was built with a dual purpose: to teach individuals how to train, exercise, and improve their lifestyle, while providing a dedicated, safe platform for trainers to network and coach their followers.
+            We believe in physical precision. FitMind AI is built for learners who want to master exactly how to execute exercises, optimize hypertrophy, and prevent injuries. Donovan Barker trains and mentors individuals directly through the ecosystem, teaching correct kinetic form and form biomechanics.
           </p>
           <p className="text-lg">
-            Through the power of community networking and our value-added AI services, we bridge the gap between expert guidance and personal achievement. This isn't just an app; it's an ecosystem for health.
+            Simultaneously, we provide a premium hosting ground for personal coaches. FitMind AI delivers a secure, next-generation business platform where professional trainers can register to host training logs, network with their followers, and scale their coaching business.
           </p>
           <div className={styles.statsContainer}>
             <div className={styles.statBox}>

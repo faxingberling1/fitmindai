@@ -9,7 +9,9 @@ import ReviewsSection from "@/components/ReviewsSection";
 import AppProgressSection from "@/components/AppProgressSection";
 import TrainingSection from "@/components/TrainingSection";
 import MediaSection from "@/components/MediaSection";
+import InstagramFeed from "@/components/InstagramFeed";
 import AppDownloadSection from "@/components/AppDownloadSection";
+import NewsletterSection from "@/components/NewsletterSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -26,7 +28,9 @@ export default function Home() {
         {/* <AppProgressSection /> */}
         <TrainingSection />
         <MediaSection />
+        <InstagramFeed />
         <AppDownloadSection />
+        <NewsletterSection />
       </main>
       <Footer />
     </div>

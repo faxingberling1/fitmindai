@@ -56,10 +56,12 @@ export default function Navbar() {
       <div className={styles.navbarWrapper}>
         <header className={styles.navbar}>
           <nav className={styles.navLinks}>
+            <Link href="/" className={styles.link}>Home</Link>
             <Link href="/#training" className={styles.link}>Training</Link>
-            <Link href="/#about" className={styles.link}>About</Link>
+            <Link href="/about" className={styles.link}>About</Link>
             <Link href="/#videos" className={styles.link}>Videos</Link>
             <Link href="/shop" className={styles.link}>Shop</Link>
+            <Link href="/contact" className={styles.link}>Contact</Link>
           </nav>
         </header>
       </div>

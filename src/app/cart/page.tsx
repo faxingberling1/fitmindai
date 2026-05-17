@@ -158,9 +158,9 @@ export default function CartPage() {
                     <span>${total.toFixed(2)}</span>
                   </div>
 
-                  <button className={styles.checkoutBtn} onClick={() => alert('Order simulation successful! Thank you for backing FitMind AI.')}>
+                  <Link href="/checkout" className={styles.checkoutBtn} style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}>
                     Secure Checkout
-                  </button>
+                  </Link>
 
                   <div className={styles.secureBadge}>
                     <span>🔒</span> 256-bit Secure Encryption

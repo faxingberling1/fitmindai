@@ -91,39 +91,31 @@ export default function EcommerceSection() {
             <div key={product.id} className={styles.productCard}>
               {product.badge && <span className={styles.badge}>{product.badge}</span>}
               
-              <div className={styles.imageContainer}>
-                <Image 
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className={styles.productImage}
-                />
-              </div>
+              <Link href={`/shop/${product.id}`} className={styles.imageLink}>
+                <div className={styles.imageContainer}>
+                  <Image 
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className={styles.productImage}
+                  />
+                </div>
+              </Link>
               
               <div className={styles.productInfo}>
-                <h3 className={styles.productName}>{product.name}</h3>
+                <Link href={`/shop/${product.id}`} className={styles.titleLink}>
+                  <h3 className={styles.productName}>{product.name}</h3>
+                </Link>
                 <p className={styles.productPrice}>{product.price}</p>
                 
-                {product.isAffiliate ? (
-                  <a 
-                    href={product.affiliateLink} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={styles.addToCartBtn}
-                    style={{ textAlign: 'center', display: 'block', textDecoration: 'none' }}
-                  >
-                    Buy from Partner ↗
-                  </a>
-                ) : (
-                  <Link 
-                    href="/cart"
-                    className={styles.addToCartBtn}
-                    style={{ textAlign: 'center', display: 'block', textDecoration: 'none' }}
-                  >
-                    Add to Cart
-                  </Link>
-                )}
+                <Link 
+                  href={`/shop/${product.id}`}
+                  className={styles.addToCartBtn}
+                  style={{ textAlign: 'center', display: 'block', textDecoration: 'none' }}
+                >
+                  View Product Details
+                </Link>
               </div>
             </div>
           ))}

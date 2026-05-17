@@ -1,53 +1,69 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import styles from './page.module.css';
 
-// Placeholder Cart Data
-const initialCart = [
-  {
-    id: 1,
-    name: 'BPC-157 Recovery Matrix',
-    category: 'Peptides',
-    price: 89.99,
-    quantity: 1,
-    imageType: 'bottle'
-  },
-  {
-    id: 2,
-    name: 'FitMind Pro Hoodie',
-    category: 'Apparel',
-    price: 65.00,
-    quantity: 2,
-    imageType: 'apparel'
-  }
-];
-
 export default function CartPage() {
-  const [cart, setCart] = useState(initialCart);
+  const [cart, setCart] = useState<any[]>([]);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
-  const updateQuantity = (id: number, delta: number) => {
-    setCart(cart.map(item => {
-      if (item.id === id) {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const activeCartRaw = localStorage.getItem('fitmind_cart');
+      if (activeCartRaw) {
+        try {
+          setCart(JSON.parse(activeCartRaw));
+        } catch (e) {
+          setCart([]);
+        }
+      }
+      setIsLoaded(true);
+    }
+  }, []);
+
+  const updateQuantity = (id: number, delta: number, size?: string) => {
+    const updatedCart = cart.map(item => {
+      if (item.id === id && item.size === size) {
         const newQuantity = Math.max(1, item.quantity + delta);
         return { ...item, quantity: newQuantity };
       }
       return item;
-    }));
+    });
+    setCart(updatedCart);
+    localStorage.setItem('fitmind_cart', JSON.stringify(updatedCart));
+    window.dispatchEvent(new Event('cartUpdate'));
   };
 
-  const removeItem = (id: number) => {
-    setCart(cart.filter(item => item.id !== id));
+  const removeItem = (id: number, size?: string) => {
+    const updatedCart = cart.filter(item => !(item.id === id && item.size === size));
+    setCart(updatedCart);
+    localStorage.setItem('fitmind_cart', JSON.stringify(updatedCart));
+    window.dispatchEvent(new Event('cartUpdate'));
   };
 
   const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const shipping = subtotal > 150 ? 0 : 15.00;
-  const tax = subtotal * 0.08; // 8% placeholder tax
+  const tax = subtotal * 0.08;
   const total = subtotal + shipping + tax;
+
+  if (!isLoaded) {
+    return (
+      <div className={styles.container}>
+        <Navbar />
+        <main className={styles.main}>
+          <div className={styles.loadingState}>
+            <div className={styles.spinner}></div>
+            <p>Accessing Secure Cart Telemetry...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
@@ -58,7 +74,7 @@ export default function CartPage() {
           
           <div className={styles.cartHeader}>
             <h1 className="heading-lg">Your <span className="text-gradient">Cart</span></h1>
-            <Link href="/#shop" className={styles.continueShopping}>
+            <Link href="/shop" className={styles.continueShopping}>
               Continue Shopping
             </Link>
           </div>
@@ -67,7 +83,7 @@ export default function CartPage() {
             <div className={styles.emptyCart}>
               <h2>Your cart is empty</h2>
               <p className="text-gray">Looks like you haven't added any gear yet.</p>
-              <Link href="/#shop" className="btn-primary" style={{ marginTop: '2rem' }}>
+              <Link href="/shop" className="btn-primary">
                 Shop Performance Gear
               </Link>
             </div>
@@ -76,28 +92,36 @@ export default function CartPage() {
               
               {/* Left Column: Cart Items */}
               <div className={styles.itemsColumn}>
-                {cart.map((item) => (
-                  <div key={item.id} className={styles.cartItem}>
+                {cart.map((item, idx) => (
+                  <div key={`${item.id}-${item.size || 'no-size'}-${idx}`} className={styles.cartItem}>
                     
-                    <div className={`${styles.itemImage} ${styles[item.imageType]}`}>
-                      <span className={styles.imagePlaceholderText}>{item.category}</span>
+                    <div className={styles.itemImageContainer}>
+                      <Image 
+                        src={item.image || 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=150'}
+                        alt={item.name}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                      />
                     </div>
 
                     <div className={styles.itemDetails}>
                       <h3 className={styles.itemName}>{item.name}</h3>
-                      <p className={styles.itemCategory}>{item.category}</p>
+                      <div className={styles.metaRow}>
+                        <span className={styles.itemCategory}>{item.category}</span>
+                        {item.size && <span className={styles.itemSizeBadge}>Size: {item.size}</span>}
+                      </div>
                       <button 
                         className={styles.removeBtn}
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => removeItem(item.id, item.size)}
                       >
                         Remove
                       </button>
                     </div>
 
                     <div className={styles.itemQuantity}>
-                      <button onClick={() => updateQuantity(item.id, -1)} className={styles.qtyBtn}>-</button>
+                      <button onClick={() => updateQuantity(item.id, -1, item.size)} className={styles.qtyBtn}>-</button>
                       <span className={styles.qtyValue}>{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, 1)} className={styles.qtyBtn}>+</button>
+                      <button onClick={() => updateQuantity(item.id, 1, item.size)} className={styles.qtyBtn}>+</button>
                     </div>
 
                     <div className={styles.itemPrice}>
@@ -134,7 +158,7 @@ export default function CartPage() {
                     <span>${total.toFixed(2)}</span>
                   </div>
 
-                  <button className={styles.checkoutBtn}>
+                  <button className={styles.checkoutBtn} onClick={() => alert('Order simulation successful! Thank you for backing FitMind AI.')}>
                     Secure Checkout
                   </button>
 

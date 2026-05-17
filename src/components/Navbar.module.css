@@ -1,21 +1,30 @@
 .navbarWrapper {
-  position: sticky;
+  position: fixed;
   top: 1.5rem;
-  z-index: 100;
-  padding: 0 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 0.95rem 2.85rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  max-width: 1300px;
-  margin: 0 auto;
-  width: 100%;
+  width: fit-content;
+  background-color: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px; /* Floating center pages pill */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 112, 243, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .logoContainer {
+  position: fixed;
+  top: 1.5rem;
+  left: 4%;
+  z-index: 1000;
   display: flex;
   align-items: center;
-  flex-shrink: 0;
-  flex: 1;
 }
 
 .logoImage {
@@ -27,14 +36,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.75rem 2.5rem;
-  background-color: rgba(10, 10, 10, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 100px; /* Pill shape */
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-  margin: 0 1.5rem;
 }
 
 .navLinks {
@@ -56,12 +57,13 @@
 }
 
 .ctaContainer {
+  position: fixed;
+  top: 1.5rem;
+  right: 4%;
+  z-index: 1000;
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  flex-shrink: 0;
-  flex: 1;
-  justify-content: flex-end;
 }
 
 .iconLink {
@@ -107,20 +109,15 @@
 
 @media (max-width: 850px) {
   .navbarWrapper {
-    flex-direction: row;
-    padding: 0.5rem 1rem;
-    top: 0;
-    background-color: rgba(10, 10, 10, 0.9);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-  .navbar {
-    display: none; /* Hide navigation links pill on smaller viewports */
+    display: none; /* Hide center pages pill on mobile */
   }
   .logoContainer {
-    flex: unset;
+    top: 1.25rem;
+    left: 1.5rem;
   }
   .ctaContainer {
-    flex: unset;
+    top: 1.25rem;
+    right: 1.5rem;
   }
 }
 

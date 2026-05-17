@@ -138,6 +138,20 @@
   color: white;
 }
 
+.imageLink {
+  display: block;
+  width: 100%;
+}
+
+.titleLink {
+  text-decoration: none;
+  display: block;
+}
+
+.titleLink:hover .productName {
+  color: var(--primary-blue);
+}
+
 @media (max-width: 768px) {
   .tabs {
     flex-wrap: wrap;

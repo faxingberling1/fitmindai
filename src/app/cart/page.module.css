@@ -37,11 +37,16 @@
 }
 
 .emptyCart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   padding: 6rem 2rem;
   background: rgba(255, 255, 255, 0.02);
   border-radius: 24px;
   border: 1px dashed rgba(255, 255, 255, 0.1);
+  gap: 1.25rem;
 }
 
 .cartLayout {
@@ -74,31 +79,54 @@
   border-color: rgba(0, 112, 243, 0.2);
 }
 
-.itemImage {
+.itemImageContainer {
+  position: relative;
   width: 100px;
   height: 100px;
   border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
   flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.bottle {
-  background: linear-gradient(135deg, #2a2a2a, #0d0d0d);
-  border: 1px solid rgba(255,255,255,0.1);
+.metaRow {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
 }
 
-.apparel {
-  background: #222;
-  border: 1px dashed rgba(255,255,255,0.2);
-}
-
-.imagePlaceholderText {
+.itemSizeBadge {
+  background: rgba(0, 112, 243, 0.08);
+  border: 1px solid rgba(0, 112, 243, 0.2);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
   font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.4);
-  font-weight: bold;
+  color: var(--primary-blue);
+  font-weight: 700;
   text-transform: uppercase;
+}
+
+.loadingState {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.05);
+  border-top-color: var(--primary-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .itemDetails {

@@ -6,7 +6,7 @@ export default function HeroSection() {
   return (
     <section className={styles.hero}>
       <div className={styles.glowEffect}></div>
-      
+
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.badge}>LEARN • TRAIN • NETWORK</div>
@@ -25,7 +25,7 @@ export default function HeroSection() {
               Explore Performance Shop
             </Link>
           </div>
-          
+
           <div className={styles.statsContainer}>
             <div className={styles.stat}>
               <span className={styles.statNumber}>Learners</span>
@@ -52,19 +52,19 @@ export default function HeroSection() {
                 <span>9:41</span>
                 <div className={styles.statusIcons}>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.79-1.79C9.09 19.64 10.5 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+                    <path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.79-1.79C9.09 19.64 10.5 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z" />
                   </svg>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17 5H7c-1.1 0-1.99.9-1.99 2L5 17c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z"/>
+                    <path d="M17 5H7c-1.1 0-1.99.9-1.99 2L5 17c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z" />
                   </svg>
                 </div>
               </div>
               <div className={styles.appLogoContainer}>
-                <Image 
-                  src="/assets/fitmindai.png" 
-                  alt="FitMind AI App Screen" 
-                  width={140} 
-                  height={38} 
+                <Image
+                  src="/assets/fitmindai.png"
+                  alt="FitMind AI App Screen"
+                  width={140}
+                  height={38}
                   style={{ height: 'auto' }}
                   className={styles.appLogo}
                 />
@@ -73,23 +73,23 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-          
+
           <div className={styles.productMockup1}>
             <div className={styles.bottleShape}>
               <div className={styles.bottleCap}></div>
               <div className={styles.bottleLabel}>BPC-157</div>
             </div>
           </div>
-          
+
           <div className={styles.productMockup2}>
-             <Image 
-               src="/assets/fitmindai.png" 
-               alt="FitMind AI Logo" 
-               width={320} 
-               height={93} 
-               style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 22px rgba(0, 112, 243, 0.8)) drop-shadow(0 0 45px rgba(0, 112, 243, 0.4))' }}
-               priority
-             />
+            <Image
+              src="/assets/fitmindai.png"
+              alt="FitMind AI Logo"
+              width={320}
+              height={93}
+              style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 22px rgba(0, 112, 243, 0.8)) drop-shadow(0 0 45px rgba(0, 112, 243, 0.4))' }}
+              priority
+            />
           </div>
         </div>
       </div>

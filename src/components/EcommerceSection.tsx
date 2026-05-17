@@ -3,55 +3,34 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { products } from '@/data/products';
 import styles from './EcommerceSection.module.css';
 
-const products = [
-  {
-    id: 1,
-    name: 'BPC-157 Recovery Matrix',
-    category: 'peptides',
-    price: '$89.99',
-    badge: 'Best Seller',
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=300&auto=format&fit=crop',
-    isAffiliate: true,
-    affiliateLink: 'https://example-affiliate-partner.com'
-  },
-  {
-    id: 2,
-    name: 'FitMind Pro Hoodie',
-    category: 'apparel',
-    price: '$65.00',
-    badge: 'New',
-    image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=300&auto=format&fit=crop',
-    isAffiliate: false
-  },
-  {
-    id: 3,
-    name: 'TB-500 Performance Blend',
-    category: 'peptides',
-    price: '$95.00',
-    badge: '',
-    image: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?q=80&w=300&auto=format&fit=crop',
-    isAffiliate: true,
-    affiliateLink: 'https://example-affiliate-partner.com'
-  },
-  {
-    id: 4,
-    name: 'Tactical Gym Duffel',
-    category: 'accessories',
-    price: '$45.00',
-    badge: '',
-    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=300&auto=format&fit=crop',
-    isAffiliate: false
-  }
+type TabKey = 'all' | 'equipment' | 'training' | 'recovery' | 'nutrition' | 'apparel' | 'accessories' | 'peptides';
+
+const tabs: { key: TabKey; label: string; icon: string }[] = [
+  { key: 'all',         label: 'All Gear',      icon: '🏪' },
+  { key: 'equipment',   label: 'Equipment',     icon: '🏋️' },
+  { key: 'training',    label: 'Training',      icon: '🥊' },
+  { key: 'recovery',    label: 'Recovery',      icon: '⚡' },
+  { key: 'nutrition',   label: 'Nutrition',     icon: '🧬' },
+  { key: 'apparel',     label: 'Apparel',       icon: '👕' },
+  { key: 'accessories', label: 'Accessories',   icon: '🎒' },
+  { key: 'peptides',    label: 'Peptides',      icon: '🔬' },
 ];
 
-export default function EcommerceSection() {
-  const [activeTab, setActiveTab] = useState('all');
+const PREVIEW_COUNT = 6;
 
-  const filteredProducts = activeTab === 'all' 
-    ? products 
+export default function EcommerceSection() {
+  const [activeTab, setActiveTab] = useState<TabKey>('all');
+
+  const filtered = activeTab === 'all'
+    ? products
     : products.filter(p => p.category === activeTab);
+
+  // Show up to PREVIEW_COUNT items on homepage
+  const preview = filtered.slice(0, PREVIEW_COUNT);
+  const hasMore = filtered.length > PREVIEW_COUNT;
 
   return (
     <section className={styles.ecommerceSection} id="shop">
@@ -61,39 +40,31 @@ export default function EcommerceSection() {
             Performance <span className="text-gradient">Shop</span>
           </h2>
           <p className="text-md text-gray" style={{ maxWidth: '600px', margin: '0 auto 2rem' }}>
-            Elevate your training with clinical-grade peptides and premium athletic wear engineered for peak performance.
+            Premium gym equipment, training gear, recovery tools, nutrition, apparel and clinical-grade peptides — all in one place.
           </p>
-          
+
           <div className={styles.tabs}>
-            <button 
-              className={`${styles.tab} ${activeTab === 'all' ? styles.activeTab : ''}`}
-              onClick={() => setActiveTab('all')}
-            >
-              All Gear
-            </button>
-            <button 
-              className={`${styles.tab} ${activeTab === 'peptides' ? styles.activeTab : ''}`}
-              onClick={() => setActiveTab('peptides')}
-            >
-              Peptides
-            </button>
-            <button 
-              className={`${styles.tab} ${activeTab === 'apparel' ? styles.activeTab : ''}`}
-              onClick={() => setActiveTab('apparel')}
-            >
-              Apparel
-            </button>
+            {tabs.map(tab => (
+              <button
+                key={tab.key}
+                className={`${styles.tab} ${activeTab === tab.key ? styles.activeTab : ''}`}
+                onClick={() => setActiveTab(tab.key)}
+              >
+                <span className={styles.tabIcon}>{tab.icon}</span>
+                {tab.label}
+              </button>
+            ))}
           </div>
         </div>
 
         <div className={styles.productGrid}>
-          {filteredProducts.map((product) => (
+          {preview.map((product) => (
             <div key={product.id} className={styles.productCard}>
               {product.badge && <span className={styles.badge}>{product.badge}</span>}
-              
+
               <Link href={`/shop/${product.id}`} className={styles.imageLink}>
                 <div className={styles.imageContainer}>
-                  <Image 
+                  <Image
                     src={product.image}
                     alt={product.name}
                     fill
@@ -102,23 +73,36 @@ export default function EcommerceSection() {
                   />
                 </div>
               </Link>
-              
+
               <div className={styles.productInfo}>
+                <span className={styles.productCategory}>{product.category}</span>
                 <Link href={`/shop/${product.id}`} className={styles.titleLink}>
                   <h3 className={styles.productName}>{product.name}</h3>
                 </Link>
-                <p className={styles.productPrice}>{product.price}</p>
-                
-                <Link 
+                <p className={styles.productPrice}>${product.price.toFixed(2)}</p>
+
+                <Link
                   href={`/shop/${product.id}`}
                   className={styles.addToCartBtn}
                   style={{ textAlign: 'center', display: 'block', textDecoration: 'none' }}
                 >
-                  View Product Details
+                  View Details ↗
                 </Link>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* CTA to full shop */}
+        <div className={styles.shopCta}>
+          {hasMore && (
+            <p className={styles.moreCount}>
+              +{filtered.length - PREVIEW_COUNT} more {activeTab === 'all' ? 'products' : activeTab} in the full shop
+            </p>
+          )}
+          <Link href="/shop" className="btn-primary">
+            Browse Full Shop →
+          </Link>
         </div>
       </div>
     </section>

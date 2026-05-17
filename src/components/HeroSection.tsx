@@ -82,9 +82,14 @@ export default function HeroSection() {
           </div>
           
           <div className={styles.productMockup2}>
-             <div className={styles.apparelShape}>
-                <div className={styles.hoodieGraphic}>FitMind</div>
-             </div>
+             <Image 
+               src="/assets/fitmindai.png" 
+               alt="FitMind AI Logo" 
+               width={320} 
+               height={93} 
+               style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 22px rgba(0, 112, 243, 0.8)) drop-shadow(0 0 45px rgba(0, 112, 243, 0.4))' }}
+               priority
+             />
           </div>
         </div>
       </div>

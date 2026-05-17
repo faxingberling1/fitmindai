@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   padding: 8rem 2rem 4rem;
-  overflow: hidden;
+  overflow: clip; /* clip instead of hidden so sticky/fixed children still work */
   background-color: var(--bg-dark);
 }
 
@@ -237,9 +237,9 @@
 
 .productMockup2 {
   position: absolute;
-  left: -40px;
-  bottom: 80px;
-  z-index: 1;
+  left: -150px;
+  bottom: 40px;
+  z-index: 3;
   animation: floatDelay2 8s ease-in-out infinite;
 }
 

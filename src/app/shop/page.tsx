@@ -9,11 +9,22 @@ import { products } from '@/data/products';
 import styles from './page.module.css';
 
 export default function ShopListingPage() {
-  const [activeTab, setActiveTab] = useState<'all' | 'peptides' | 'apparel' | 'accessories'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'peptides' | 'apparel' | 'accessories' | 'equipment' | 'nutrition' | 'recovery' | 'training'>('all');
 
   const filteredProducts = activeTab === 'all'
     ? products
     : products.filter(p => p.category === activeTab);
+
+  const tabs: { key: typeof activeTab; label: string; icon: string }[] = [
+    { key: 'all',         label: 'All Products',   icon: '🏪' },
+    { key: 'equipment',   label: 'Equipment',       icon: '🏋️' },
+    { key: 'training',    label: 'Training Gear',   icon: '🥊' },
+    { key: 'recovery',    label: 'Recovery',        icon: '⚡' },
+    { key: 'nutrition',   label: 'Nutrition',       icon: '🧬' },
+    { key: 'apparel',     label: 'Apparel',         icon: '👕' },
+    { key: 'accessories', label: 'Accessories',     icon: '🎒' },
+    { key: 'peptides',    label: 'Peptides',        icon: '🔬' },
+  ];
 
   return (
     <div className={styles.container}>
@@ -27,40 +38,26 @@ export default function ShopListingPage() {
         <div className={styles.shopWrapper}>
           {/* Header */}
           <div className={styles.shopHeader}>
-            <div className={styles.badge}>FitMind AI Laboratory & Gear</div>
+            <div className={styles.badge}>FitMind AI Laboratory &amp; Gear</div>
             <h1 className="heading-xl">
               Performance <span className="text-gradient">Shop</span>
             </h1>
             <p className="text-lg text-gray" style={{ maxWidth: '700px', margin: '1rem auto 2.5rem' }}>
-              Access clinical-grade bio-hacking research peptides and premium tactical training apparel engineered with scientific precision.
+              Premium gym equipment, training gear, recovery tools, nutrition essentials, and clinical-grade bio-hacking peptides — all engineered with scientific precision.
             </p>
 
             {/* Filter Tabs */}
             <div className={styles.tabs}>
-              <button
-                className={`${styles.tab} ${activeTab === 'all' ? styles.activeTab : ''}`}
-                onClick={() => setActiveTab('all')}
-              >
-                All Products
-              </button>
-              <button
-                className={`${styles.tab} ${activeTab === 'peptides' ? styles.activeTab : ''}`}
-                onClick={() => setActiveTab('peptides')}
-              >
-                Peptides
-              </button>
-              <button
-                className={`${styles.tab} ${activeTab === 'apparel' ? styles.activeTab : ''}`}
-                onClick={() => setActiveTab('apparel')}
-              >
-                Apparel
-              </button>
-              <button
-                className={`${styles.tab} ${activeTab === 'accessories' ? styles.activeTab : ''}`}
-                onClick={() => setActiveTab('accessories')}
-              >
-                Accessories
-              </button>
+              {tabs.map(tab => (
+                <button
+                  key={tab.key}
+                  className={`${styles.tab} ${activeTab === tab.key ? styles.activeTab : ''}`}
+                  onClick={() => setActiveTab(tab.key)}
+                >
+                  <span className={styles.tabIcon}>{tab.icon}</span>
+                  {tab.label}
+                </button>
+              ))}
             </div>
           </div>
 

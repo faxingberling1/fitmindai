@@ -63,6 +63,16 @@
   color: var(--primary-blue);
 }
 
+.tickerLogoItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tickerLogoItem:hover img {
+  opacity: 0.7 !important;
+}
 @keyframes scroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }

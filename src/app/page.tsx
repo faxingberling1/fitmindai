@@ -1,0 +1,24 @@
+import styles from "./page.module.css";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import AboutSection from "@/components/AboutSection";
+import TrainingSection from "@/components/TrainingSection";
+import MediaSection from "@/components/MediaSection";
+import AppDownloadSection from "@/components/AppDownloadSection";
+import Footer from "@/components/Footer";
+
+export default function Home() {
+  return (
+    <div className={styles.container}>
+      <Navbar />
+      <main className={styles.main}>
+        <HeroSection />
+        <AboutSection />
+        <TrainingSection />
+        <MediaSection />
+        <AppDownloadSection />
+      </main>
+      <Footer />
+    </div>
+  );
+}

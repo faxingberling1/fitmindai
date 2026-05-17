@@ -15,7 +15,7 @@ export default function HeroSection() {
             <span className="text-gradient">Scale Your Coaching.</span>
           </h1>
           <p className="text-lg" style={{ marginTop: '1.5rem', marginBottom: '2.5rem', maxWidth: '600px', lineHeight: '1.6' }}>
-            FitMind AI is a dual-force ecosystem: a comprehensive educational training ground for individuals to learn perfect exercise form directly from Coach Donovan Barker, and a cutting-edge business suite empowering professional personal trainers to register, network, and seamlessly coach their followers.
+            FitMind AI is a dual-force ecosystem: a comprehensive educational training ground for individuals to learn perfect exercise form directly from NASM Certified Personal Trainer, Donovan Barker, and a cutting-edge business suite empowering professional personal trainers to register, network, and seamlessly coach their followers.
           </p>
           <div className={styles.buttonGroup}>
             <Link href="/waitlist" className="btn-primary">

@@ -61,7 +61,7 @@ export default function ProgramsPage() {
                 </li>
               </ul>
               
-              <Link href="/checkout" className={`${styles.actionBtn} ${styles.secondaryBtn}`}>
+              <Link href="/intake?plan=hypertrophy" className={`${styles.actionBtn} ${styles.secondaryBtn}`}>
                 Unlock Access
               </Link>
             </div>
@@ -99,7 +99,7 @@ export default function ProgramsPage() {
                 </li>
               </ul>
               
-              <Link href="/checkout" className={`${styles.actionBtn} ${styles.primaryBtn}`}>
+              <Link href="/intake?plan=elite" className={`${styles.actionBtn} ${styles.primaryBtn}`}>
                 Select Elite Plan
               </Link>
             </div>
@@ -136,7 +136,7 @@ export default function ProgramsPage() {
                 </li>
               </ul>
               
-              <Link href="/checkout" className={`${styles.actionBtn} ${styles.secondaryBtn}`}>
+              <Link href="/intake?plan=masterclass" className={`${styles.actionBtn} ${styles.secondaryBtn}`}>
                 Apply for Masterclass
               </Link>
             </div>

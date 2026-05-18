@@ -30,6 +30,7 @@ export default function LoginPage() {
   const [learnerGoal, setLearnerGoal] = useState("");
   const [trainerSpecialization, setTrainerSpecialization] = useState("");
   const [trainerCertId, setTrainerCertId] = useState("");
+  const [trainerFileName, setTrainerFileName] = useState("");
 
   // Forgot Password Flow
   const [isForgotFlow, setIsForgotFlow] = useState(false);
@@ -68,7 +69,7 @@ export default function LoginPage() {
     loginEmail, loginPassword, 
     registerName, registerEmail, registerPassword, registerConfirmPassword, 
     agreeTerms, forgotEmail, activeTab, isForgotFlow,
-    regAccountType, learnerGoal, trainerSpecialization, trainerCertId
+    regAccountType, learnerGoal, trainerSpecialization, trainerCertId, trainerFileName
   ]);
 
   // ----------------------------------------------------
@@ -139,6 +140,9 @@ export default function LoginPage() {
       if (!trainerCertId.trim()) {
         tempErrors.trainerCertId = "Certification ID is required for coaches";
       }
+      if (!trainerFileName) {
+        tempErrors.trainerFile = "Certification documentation is required for trainers";
+      }
     }
 
     if (!registerPassword) {
@@ -196,6 +200,23 @@ export default function LoginPage() {
         setToastMessage(null);
       }, 4000);
     }, 1200);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        setErrors(prev => ({ ...prev, trainerFile: "File size exceeds 5MB limit" }));
+        return;
+      }
+      setTrainerFileName(file.name);
+    }
+  };
+
+  const handleRemoveFile = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setTrainerFileName("");
   };
 
   return (
@@ -580,6 +601,46 @@ export default function LoginPage() {
                           />
                         </div>
                         {errors.trainerCertId && <span className={styles.errorMsg}>⚠️ {errors.trainerCertId}</span>}
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>Certification Documentation</label>
+                        {trainerFileName ? (
+                          <div className={styles.fileBadge}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                              <span>📄</span>
+                              <span style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", maxWidth: "230px" }}>
+                                {trainerFileName}
+                              </span>
+                            </div>
+                            <button 
+                              type="button" 
+                              className={styles.removeFileBtn} 
+                              onClick={handleRemoveFile}
+                              aria-label="Remove certification file"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ) : (
+                          <label className={styles.uploadArea}>
+                            <input 
+                              type="file" 
+                              style={{ display: "none" }} 
+                              accept=".pdf,.png,.jpg,.jpeg"
+                              onChange={handleFileChange}
+                              disabled={isSubmitting}
+                            />
+                            <div className={styles.uploadIcon}>
+                              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                              </svg>
+                            </div>
+                            <span className={styles.uploadTitle}>Upload Credentials Document</span>
+                            <span className={styles.uploadDesc}>Select PDF, PNG, or JPG (Max 5MB)</span>
+                          </label>
+                        )}
+                        {errors.trainerFile && <span className={styles.errorMsg}>⚠️ {errors.trainerFile}</span>}
                       </div>
                     </>
                   )}

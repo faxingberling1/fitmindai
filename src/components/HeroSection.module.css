@@ -333,3 +333,120 @@
     width: 45%;
   }
 }
+
+/* Certificate Modal & Link Styles */
+.certLink {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--primary-blue);
+  color: var(--primary-blue);
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s, border-color 0.2s;
+  display: inline;
+}
+
+.certLink:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+.certModalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(15px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.certModalContent {
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 112, 243, 0.15);
+  animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.certCloseBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s;
+}
+
+.certCloseBtn:hover {
+  background: #fff;
+  color: #000;
+  transform: rotate(90deg);
+}
+
+.certImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.414 / 1; /* Standard certificate ratio (A4 landscape) */
+  background: #000;
+}
+
+.antiTheftOverlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 5;
+  /* Completely invisible, but catches all right-clicks, drags, and long presses */
+  background: transparent; 
+}
+
+.certVerifiedBar {
+  padding: 1rem 1.5rem;
+  background: rgba(0, 112, 243, 0.1);
+  border-top: 1px solid rgba(0, 112, 243, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--primary-blue);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.verifiedIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: var(--primary-blue);
+  color: #000;
+  border-radius: 50%;
+  font-size: 0.75rem;
+}

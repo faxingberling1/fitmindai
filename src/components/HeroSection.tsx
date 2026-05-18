@@ -1,8 +1,13 @@
+"use client";
+
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './HeroSection.module.css';
 
 export default function HeroSection() {
+  const [showCert, setShowCert] = useState(false);
+
   return (
     <section className={styles.hero}>
       <div className={styles.glowEffect}></div>
@@ -15,7 +20,11 @@ export default function HeroSection() {
             <span className="text-gradient">Scale Your Coaching.</span>
           </h1>
           <p className="text-lg" style={{ marginTop: '1.5rem', marginBottom: '2.5rem', maxWidth: '600px', lineHeight: '1.6' }}>
-            FitMind AI is a dual-force ecosystem: a comprehensive educational training ground for individuals to learn perfect exercise form directly from NASM Certified Personal Trainer, Donovan Barker, and a cutting-edge business suite empowering professional personal trainers to register, network, and seamlessly coach their followers.
+            FitMind AI is a dual-force ecosystem: a comprehensive educational training ground for individuals to learn perfect exercise form directly from {' '}
+            <button onClick={() => setShowCert(true)} className={styles.certLink}>
+              NASM Certified Personal Trainer
+            </button>
+            , Donovan Barker, and a cutting-edge business suite empowering professional personal trainers to register, network, and seamlessly coach their followers.
           </p>
           <div className={styles.buttonGroup}>
             <Link href="/waitlist" className="btn-primary">
@@ -93,6 +102,40 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
+
+      {/* Certificate Anti-Theft Modal */}
+      {showCert && (
+        <div 
+          className={styles.certModalOverlay} 
+          onClick={() => setShowCert(false)}
+          onContextMenu={(e) => e.preventDefault()}
+        >
+          <div 
+            className={styles.certModalContent} 
+            onClick={(e) => e.stopPropagation()}
+            onContextMenu={(e) => e.preventDefault()}
+          >
+            <button className={styles.certCloseBtn} onClick={() => setShowCert(false)}>×</button>
+            <div className={styles.certImageWrapper}>
+              {/* Actual Image with download protections */}
+              <Image 
+                src="/assets/NASMCertificate.png" 
+                alt="NASM Certified Personal Trainer Certificate" 
+                fill
+                style={{ objectFit: 'contain', pointerEvents: 'none', userSelect: 'none' }}
+                onDragStart={(e) => e.preventDefault()}
+                priority
+              />
+              {/* Invisible overlay blocker to prevent long-press saving on mobile */}
+              <div className={styles.antiTheftOverlay}></div>
+            </div>
+            <div className={styles.certVerifiedBar}>
+              <span className={styles.verifiedIcon}>✓</span>
+              <span>Officially Verified Credential</span>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

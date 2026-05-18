@@ -284,6 +284,21 @@
   line-height: 1.6;
 }
 
+.profileLink {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.profileLink:hover {
+  color: #00d2ff;
+  transform: translateX(4px);
+}
+
 @media (max-width: 1000px) {
   .pricingGrid {
     grid-template-columns: 1fr;

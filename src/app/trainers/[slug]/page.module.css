@@ -1,0 +1,355 @@
+.page {
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex-grow: 1;
+  padding: 8rem 2rem 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  height: 90vw;
+  background: radial-gradient(circle, rgba(0, 112, 243, 0.06) 0%, rgba(0, 0, 0, 0) 65%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 3rem;
+  text-decoration: none;
+}
+
+.backBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transform: translateX(-3px);
+}
+
+/* Profile Grid */
+.profileGrid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.leftCol, .rightCol {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Cards System */
+.avatarCard, .metricCard, .specialtiesCard, .bioCard, .approachCard, .philosophyCard, .certsCard, .ctaCard {
+  background: rgba(13, 13, 13, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+/* Avatar Card details */
+.avatarCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.avatarCircle {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(0, 112, 243, 0.2) 0%, rgba(0, 0, 0, 0.3) 100%);
+  border: 2px dashed rgba(0, 112, 243, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 30px rgba(0, 112, 243, 0.15);
+}
+
+.trainerName {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.75px;
+  margin-bottom: 0.5rem;
+}
+
+.trainerTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.experienceBadge {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  color: var(--text-gray);
+  font-weight: 600;
+}
+
+/* Metric Card */
+.metricCard {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(0, 112, 243, 0.03) 0%, rgba(0, 0, 0, 0.3) 100%);
+  border-color: rgba(0, 112, 243, 0.12);
+}
+
+.metricVal {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(180deg, #fff 30%, var(--primary-blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.metricLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-gray);
+}
+
+/* Specialties Card */
+.specialtiesCard {
+  padding: 2rem;
+}
+
+.sectionTitleSmall {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-gray);
+  letter-spacing: 1px;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.75rem;
+}
+
+.specialtiesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.specialtyTag {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.specialtyTag:hover {
+  background: rgba(0, 112, 243, 0.04);
+  border-color: rgba(0, 112, 243, 0.2);
+  transform: translateX(3px);
+  color: #fff;
+}
+
+/* Right Column details */
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin-bottom: 1.25rem;
+}
+
+.paragraph {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Philosophy Quote Card */
+.philosophyCard {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 100%);
+  border-left: 4px solid var(--primary-blue);
+  padding: 2.5rem;
+  overflow: hidden;
+}
+
+.quoteMark {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  font-size: 6rem;
+  font-family: Georgia, serif;
+  color: rgba(0, 112, 243, 0.08);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.philosophyText {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.5;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Certifications Card */
+.certsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.certItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+
+.checkIcon {
+  color: var(--primary-blue);
+  font-weight: bold;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* CTA Card */
+.ctaCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  background: radial-gradient(circle at top right, rgba(0, 112, 243, 0.08) 0%, rgba(0, 0, 0, 0.3) 100%);
+  border-color: rgba(0, 112, 243, 0.2);
+  margin-top: 2rem;
+}
+
+.ctaContent {
+  flex: 1;
+}
+
+.ctaTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.75px;
+}
+
+.ctaDesc {
+  font-size: 1rem;
+  color: var(--text-gray);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.ctaBtn {
+  background: var(--primary-blue);
+  color: #fff;
+  border-radius: 100px;
+  padding: 1.1rem 2.5rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  box-shadow: 0 8px 30px rgba(0, 112, 243, 0.3);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.ctaBtn:hover {
+  background: #0060df;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 112, 243, 0.45);
+}
+
+/* Responsive Scaling */
+@media (max-width: 1024px) {
+  .profileGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 6rem 1.5rem 4rem;
+  }
+  
+  .avatarCard, .metricCard, .specialtiesCard, .bioCard, .approachCard, .philosophyCard, .certsCard, .ctaCard {
+    padding: 1.75rem;
+  }
+  
+  .certsList {
+    grid-template-columns: 1fr;
+  }
+
+  .ctaCard {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .ctaBtn {
+    width: 100%;
+    text-align: center;
+  }
+}

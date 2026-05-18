@@ -159,7 +159,6 @@ export default function ProgramsPage() {
             {/* Donovan Barker */}
             <div className={styles.trainerCard}>
               <div className={styles.trainerImageWrapper}>
-                {/* Placeholder graphic for now */}
                 👑
               </div>
               <div className={styles.trainerInfo}>
@@ -168,10 +167,13 @@ export default function ProgramsPage() {
                 <p className={styles.trainerBio}>
                   The architect of FitMind AI. Donovan specializes in elite kinetic execution, advanced hypertrophy mechanics, and building systems that scale professional coaching.
                 </p>
+                <Link href="/trainers/donovan-barker" className={styles.profileLink}>
+                  View Profile & Specialties →
+                </Link>
               </div>
             </div>
 
-            {/* Placeholder Trainer 1 */}
+            {/* Sarah Jenkins */}
             <div className={styles.trainerCard}>
               <div className={styles.trainerImageWrapper}>
                 💪
@@ -182,10 +184,13 @@ export default function ProgramsPage() {
                 <p className={styles.trainerBio}>
                   With over 8,000 hours of 1-on-1 coaching experience, Sarah specializes in bridging the gap between clinical biomechanics and functional athletic performance.
                 </p>
+                <Link href="/trainers/sarah-jenkins" className={styles.profileLink}>
+                  View Profile & Specialties →
+                </Link>
               </div>
             </div>
 
-            {/* Placeholder Trainer 2 */}
+            {/* Marcus Thorne */}
             <div className={styles.trainerCard}>
               <div className={styles.trainerImageWrapper}>
                 ⚡
@@ -196,6 +201,9 @@ export default function ProgramsPage() {
                 <p className={styles.trainerBio}>
                   Marcus is FitMind AI's lead specialist for injury prevention and corrective exercise, ensuring our clients build dense muscle without sacrificing joint longevity.
                 </p>
+                <Link href="/trainers/marcus-thorne" className={styles.profileLink}>
+                  View Profile & Specialties →
+                </Link>
               </div>
             </div>
 

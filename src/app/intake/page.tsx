@@ -82,12 +82,11 @@ function IntakeContent() {
 
   return (
     <div className={styles.container}>
-      {/* Progress Bar */}
       <div className={styles.progressContainer}>
         <div className={styles.progressTrack}></div>
         <div 
           className={styles.progressFill} 
-          style={{ width: `${((step - 1) / (totalSteps - 1)) * 100}%` }}
+          style={{ width: `calc((100% - 32px) * ${((step - 1) / (totalSteps - 1))})` }}
         ></div>
         
         {[
@@ -95,7 +94,7 @@ function IntakeContent() {
           { num: 2, name: 'Objectives' },
           { num: 3, name: 'Lifestyle' }
         ].map((item) => (
-          <div key={item.num} className={styles.stepWrapper} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: item.num === 3 ? 0 : 1, position: 'relative' }}>
+          <div key={item.num} className={styles.stepWrapper}>
             <div className={`${styles.stepDot} ${step === item.num ? styles.stepDotActive : ''} ${step > item.num ? styles.stepDotCompleted : ''}`}>
               {step > item.num ? '✓' : item.num}
             </div>

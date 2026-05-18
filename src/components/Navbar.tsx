@@ -93,6 +93,9 @@ export default function Navbar() {
         <Link href="/#download" className={`btn-primary ${styles.desktopCta}`}>
           Get App
         </Link>
+        <Link href="/login" className={`btn-secondary ${styles.desktopCta}`}>
+          Login / Register
+        </Link>
 
         {/* Hamburger button — mobile only */}
         <button
@@ -137,6 +140,9 @@ export default function Navbar() {
             </Link>
             <Link href="/#download" className="btn-primary" onClick={closeMenu}>
               Get App
+            </Link>
+            <Link href="/login" className="btn-secondary" onClick={closeMenu} style={{ textAlign: 'center' }}>
+              Login / Register
             </Link>
           </div>
         </div>

@@ -11,6 +11,13 @@ function IntakeContent() {
   const searchParams = useSearchParams();
   const plan = searchParams.get('plan') || 'hypertrophy';
   
+  const planMeta: Record<string, { name: string; price: string; color: string }> = {
+    hypertrophy: { name: 'Hypertrophy Blueprint', price: '$49/mo', color: '#0070f3' },
+    elite: { name: 'Performance Elite', price: '$149/mo', color: '#0070f3' },
+    masterclass: { name: 'FitMind AI Masterclass', price: '$299/mo', color: '#0070f3' }
+  };
+  const currentPlan = planMeta[plan] || planMeta.hypertrophy;
+  
   const [step, setStep] = useState(1);
   const totalSteps = 3;
 
@@ -105,6 +112,11 @@ function IntakeContent() {
         ))}
       </div>
 
+      <div className={styles.selectedPlanBadge}>
+        <span className={styles.planGlow} style={{ backgroundColor: currentPlan.color, boxShadow: `0 0 10px ${currentPlan.color}` }}></span>
+        Selected Program: <strong style={{ color: currentPlan.color, marginLeft: '0.25rem', marginRight: '0.25rem' }}>{currentPlan.name}</strong> ({currentPlan.price})
+      </div>
+
       <form onSubmit={step === totalSteps ? handleSubmit : (e) => { e.preventDefault(); handleNext(); }}>
         
         {/* STEP 1: BIOMETRICS */}
@@ -147,7 +159,7 @@ function IntakeContent() {
                   <label className={styles.label}>Height (Feet / Inches)</label>
                   <div style={{ display: 'flex', gap: '0.5rem' }}>
                     <input type="number" name="heightFeet" value={formData.heightFeet} onChange={handleInputChange} className={styles.input} placeholder="Ft" required min="3" max="8" />
-                    <input type="number" name="heightInches" value={formData.heightInches} onChange={handleInputChange} className={styles.input} placeholder="In" min="0" max="11" />
+                    <input type="number" name="heightInches" value={formData.heightInches} onChange={handleInputChange} className={styles.input} placeholder="In" required min="0" max="11" />
                   </div>
                 </div>
               </div>
@@ -236,7 +248,8 @@ function IntakeContent() {
                 onChange={handleInputChange} 
                 className={styles.input} 
                 style={{ minHeight: '100px', resize: 'vertical' }}
-                placeholder="List any torn ligaments, chronic pain, or surgeries... (Leave blank if none)"
+                placeholder="List any torn ligaments, chronic pain, or surgeries... (Type 'None' if none)"
+                required
               ></textarea>
             </div>
 

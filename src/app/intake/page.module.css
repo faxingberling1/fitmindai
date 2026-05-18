@@ -44,6 +44,7 @@
 .progressContainer {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   margin-bottom: 3.5rem;
   position: relative;
 }
@@ -175,6 +176,11 @@
   outline: none;
   border-color: var(--primary-blue);
   background: rgba(0, 112, 243, 0.05);
+}
+
+.input option {
+  background-color: #0c0c0c;
+  color: #fff;
 }
 
 .row {
@@ -334,4 +340,29 @@
   align-items: center;
   position: relative;
   z-index: 2;
+}
+
+.selectedPlanBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 100px;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-light);
+  margin: 0 auto 2.5rem;
+  width: fit-content;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.planGlow {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
 }

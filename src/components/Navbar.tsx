@@ -72,6 +72,7 @@ export default function Navbar() {
             <Link href="/" className={styles.link}>Home</Link>
             <Link href="/#training" className={styles.link}>Training</Link>
             <Link href="/about" className={styles.link}>About</Link>
+            <Link href="/programs" className={styles.link}>Programs</Link>
             <Link href="/#videos" className={styles.link}>Videos</Link>
             <Link href="/shop" className={styles.link}>Shop</Link>
             <Link href="/contact" className={styles.link}>Contact</Link>
@@ -120,6 +121,7 @@ export default function Navbar() {
             <Link href="/" className={styles.mobileLink} onClick={closeMenu}>Home</Link>
             <Link href="/#training" className={styles.mobileLink} onClick={closeMenu}>Training</Link>
             <Link href="/about" className={styles.mobileLink} onClick={closeMenu}>About</Link>
+            <Link href="/programs" className={styles.mobileLink} onClick={closeMenu}>Programs</Link>
             <Link href="/#videos" className={styles.mobileLink} onClick={closeMenu}>Videos</Link>
             <Link href="/shop" className={styles.mobileLink} onClick={closeMenu}>Shop</Link>
             <Link href="/contact" className={styles.mobileLink} onClick={closeMenu}>Contact</Link>

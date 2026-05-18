@@ -90,11 +90,18 @@ function IntakeContent() {
           style={{ width: `${((step - 1) / (totalSteps - 1)) * 100}%` }}
         ></div>
         
-        {[1, 2, 3].map((num) => (
-          <div key={num} style={{ display: 'flex', alignItems: 'center', flexGrow: num === 3 ? 0 : 1 }}>
-            <div className={`${styles.stepDot} ${step === num ? styles.stepDotActive : ''} ${step > num ? styles.stepDotCompleted : ''}`}>
-              {step > num ? '✓' : num}
+        {[
+          { num: 1, name: 'Biometrics' },
+          { num: 2, name: 'Objectives' },
+          { num: 3, name: 'Lifestyle' }
+        ].map((item) => (
+          <div key={item.num} className={styles.stepWrapper} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: item.num === 3 ? 0 : 1, position: 'relative' }}>
+            <div className={`${styles.stepDot} ${step === item.num ? styles.stepDotActive : ''} ${step > item.num ? styles.stepDotCompleted : ''}`}>
+              {step > item.num ? '✓' : item.num}
             </div>
+            <span className={`${styles.stepLabel} ${step === item.num ? styles.stepLabelActive : ''} ${step > item.num ? styles.stepLabelCompleted : ''}`}>
+              Step {item.num}: {item.name}
+            </span>
           </div>
         ))}
       </div>
@@ -264,7 +271,7 @@ function IntakeContent() {
           {step > 1 ? (
             <button type="button" onClick={handleBack} className={styles.backBtn}>Back</button>
           ) : (
-            <div></div> // Empty div to keep 'Next' aligned right
+            <button type="button" onClick={() => router.push('/programs')} className={styles.backBtn}>Back to Programs</button>
           )}
           
           <button type="submit" className={styles.nextBtn}>

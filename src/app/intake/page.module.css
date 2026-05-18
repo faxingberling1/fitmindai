@@ -43,14 +43,14 @@
 /* Progress Bar */
 .progressContainer {
   display: flex;
-  align-items: center;
-  margin-bottom: 3rem;
+  align-items: flex-start;
+  margin-bottom: 3.5rem;
   position: relative;
 }
 
 .progressTrack {
   position: absolute;
-  top: 50%;
+  top: 16px;
   left: 0;
   right: 0;
   height: 2px;
@@ -61,7 +61,7 @@
 
 .progressFill {
   position: absolute;
-  top: 50%;
+  top: 16px;
   left: 0;
   height: 2px;
   background: var(--primary-blue);
@@ -97,6 +97,25 @@
 .stepDotCompleted {
   background: var(--primary-blue);
   border-color: var(--primary-blue);
+  color: #fff;
+}
+
+.stepLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-gray);
+  margin-top: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.stepLabelActive {
+  color: var(--primary-blue);
+}
+
+.stepLabelCompleted {
   color: #fff;
 }
 

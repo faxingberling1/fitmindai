@@ -70,7 +70,7 @@ export default function Navbar() {
         <header className={styles.navbar}>
           <nav className={styles.navLinks}>
             <Link href="/" className={styles.link}>Home</Link>
-            <Link href="/#training" className={styles.link}>Training</Link>
+            <Link href="/training" className={styles.link}>Training</Link>
             <Link href="/about" className={styles.link}>About</Link>
             <Link href="/programs" className={styles.link}>Programs</Link>
             <Link href="/#videos" className={styles.link}>Videos</Link>
@@ -119,7 +119,7 @@ export default function Navbar() {
         <div className={styles.mobileMenuInner}>
           <div className={styles.mobileLinks}>
             <Link href="/" className={styles.mobileLink} onClick={closeMenu}>Home</Link>
-            <Link href="/#training" className={styles.mobileLink} onClick={closeMenu}>Training</Link>
+            <Link href="/training" className={styles.mobileLink} onClick={closeMenu}>Training</Link>
             <Link href="/about" className={styles.mobileLink} onClick={closeMenu}>About</Link>
             <Link href="/programs" className={styles.mobileLink} onClick={closeMenu}>Programs</Link>
             <Link href="/#videos" className={styles.mobileLink} onClick={closeMenu}>Videos</Link>

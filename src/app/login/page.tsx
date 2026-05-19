@@ -44,6 +44,7 @@ export default function LoginPage() {
   const [successMode, setSuccessMode] = useState<"login" | "register">("login");
   const [redirectCountdown, setRedirectCountdown] = useState(3);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [loggedRole, setLoggedRole] = useState("learner");
 
   // ----------------------------------------------------
   // Effects
@@ -56,10 +57,10 @@ export default function LoginPage() {
         setRedirectCountdown(prev => prev - 1);
       }, 1000);
     } else if (isSuccess && redirectCountdown === 0) {
-      window.location.href = "/";
+      window.location.href = "/dashboard?role=" + loggedRole;
     }
     return () => clearInterval(timer);
-  }, [isSuccess, redirectCountdown]);
+  }, [isSuccess, redirectCountdown, loggedRole]);
 
   // Clean error triggers on input adjustments
   useEffect(() => {
@@ -106,6 +107,13 @@ export default function LoginPage() {
       if (loginEmail.toLowerCase() === "error@fitmind.ai") {
         setGlobalError("Invalid email or password combination. Please try again.");
       } else {
+        let role = "learner";
+        if (loginEmail.toLowerCase().includes("admin")) {
+          role = "admin";
+        } else if (loginEmail.toLowerCase().includes("trainer")) {
+          role = "trainer";
+        }
+        setLoggedRole(role);
         setSuccessMode("login");
         setIsSuccess(true);
       }
@@ -171,6 +179,7 @@ export default function LoginPage() {
       if (registerEmail.toLowerCase() === "taken@fitmind.ai") {
         setGlobalError("This email address is already registered.");
       } else {
+        setLoggedRole(regAccountType === "trainer" ? "trainer" : "learner");
         setSuccessMode("register");
         setIsSuccess(true);
       }
@@ -217,6 +226,36 @@ export default function LoginPage() {
     e.preventDefault();
     e.stopPropagation();
     setTrainerFileName("");
+  };
+
+  const handleDemoLogin = (role: "learner" | "trainer" | "admin") => {
+    setErrors({});
+    setGlobalError(null);
+    setIsSubmitting(true);
+
+    let email = "";
+    let password = "";
+
+    if (role === "learner") {
+      email = "learner@fitmind.ai";
+      password = "learnerpassword123";
+    } else if (role === "trainer") {
+      email = "trainer@fitmind.ai";
+      password = "trainerpassword123";
+    } else {
+      email = "admin@fitmind.ai";
+      password = "adminpassword123";
+    }
+
+    setLoginEmail(email);
+    setLoginPassword(password);
+    setLoggedRole(role);
+
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSuccessMode("login");
+      setIsSuccess(true);
+    }, 1200);
   };
 
   return (
@@ -792,6 +831,39 @@ export default function LoginPage() {
                   <span>Apple ID</span>
                 </button>
               </div>
+
+              {/* DEMO ACCESS TERMINAL */}
+              {activeTab === "login" && (
+                <>
+                  <div className={styles.socialDivider} style={{ marginTop: "1.75rem" }}>QUICK SYSTEM DEMO ACCESS</div>
+                  <div className={styles.demoTerminal}>
+                    <button 
+                      type="button"
+                      className={`${styles.demoBtn} ${styles.demoLearner}`}
+                      onClick={() => handleDemoLogin("learner")}
+                      disabled={isSubmitting}
+                    >
+                      <span>🎓 Learner Demo</span>
+                    </button>
+                    <button 
+                      type="button"
+                      className={`${styles.demoBtn} ${styles.demoTrainer}`}
+                      onClick={() => handleDemoLogin("trainer")}
+                      disabled={isSubmitting}
+                    >
+                      <span>👑 Trainer Demo</span>
+                    </button>
+                    <button 
+                      type="button"
+                      className={`${styles.demoBtn} ${styles.demoAdmin}`}
+                      onClick={() => handleDemoLogin("admin")}
+                      disabled={isSubmitting}
+                    >
+                      <span>⚙️ Admin Demo</span>
+                    </button>
+                  </div>
+                </>
+              )}
 
             </div>
           )}

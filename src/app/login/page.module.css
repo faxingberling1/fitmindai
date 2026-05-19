@@ -618,3 +618,65 @@
 .removeFileBtn:hover {
   color: #ff3366;
 }
+
+/* Demo Access Terminal Styles */
+.demoTerminal {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+.demoBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 8px 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(10px);
+}
+
+.demoBtn span {
+  white-space: nowrap;
+}
+
+.demoBtn:hover {
+  transform: translateY(-2px);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.demoLearner:hover {
+  border-color: rgba(0, 112, 243, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 112, 243, 0.15);
+}
+
+.demoTrainer:hover {
+  border-color: rgba(0, 243, 218, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 243, 218, 0.15);
+}
+
+.demoAdmin:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 480px) {
+  .demoTerminal {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+  .demoBtn {
+    padding: 10px;
+    font-size: 0.8rem;
+  }
+}

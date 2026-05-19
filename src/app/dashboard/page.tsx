@@ -24,7 +24,20 @@ interface ClientProfile {
 
 export default function DashboardPage() {
   const [role, setRole] = useState<"learner" | "trainer" | "admin" | null>(null);
+  const [activeTab, setActiveTab] = useState<"overview" | "orders" | "academy" | "settings">("overview");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Settings State
+  const [settings, setSettings] = useState({ emailAlerts: true, smsAlerts: false, autoPlay: true });
+
+  // Notifications State
+  const [showNotifs, setShowNotifs] = useState(false);
+  const [notifs, setNotifs] = useState([
+    { id: 1, title: 'Order Shipped: FM-X9K', time: '10m ago', icon: '📦', read: false },
+    { id: 2, title: 'New Module Available', time: '1h ago', icon: '🎓', read: false },
+    { id: 3, title: 'Coach Donovan left a note', time: '2h ago', icon: '📝', read: false }
+  ]);
+  const unreadCount = notifs.filter(n => !n.read).length;
 
   // Learner states
   const [activeLesson, setActiveLesson] = useState<{ title: string; course: string; duration: string } | null>(null);
@@ -73,6 +86,17 @@ export default function DashboardPage() {
       } else {
         // Fallback
         window.location.href = "/login";
+      }
+
+      // -- NEW: Load dynamic orders from localStorage --
+      const savedOrders = localStorage.getItem('fitmind_orders');
+      if (savedOrders) {
+        try {
+          const parsed = JSON.parse(savedOrders);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setStoreOrders(prev => [...parsed, ...prev]);
+          }
+        } catch(e) { console.error("Error loading orders", e); }
       }
     }
   }, []);
@@ -140,7 +164,10 @@ export default function DashboardPage() {
         
         <div className={styles.sidebarNav}>
           <div className={styles.navSection}>Main Menu</div>
-          <button className={`${styles.navItem} ${styles.navItemActive}`}>
+          <button 
+            className={`${styles.navItem} ${activeTab === 'overview' ? styles.navItemActive : ''}`}
+            onClick={() => setActiveTab('overview')}
+          >
             <span className={styles.navIcon}>
               {role === "learner" ? "🎓" : role === "trainer" ? "👑" : "⚙️"}
             </span>
@@ -148,10 +175,23 @@ export default function DashboardPage() {
           </button>
           
           {role === "learner" && (
-            <button className={styles.navItem}>
-              <span className={styles.navIcon}>📚</span>
-              <span>My Academy</span>
-            </button>
+            <>
+              <button 
+                className={`${styles.navItem} ${activeTab === 'academy' ? styles.navItemActive : ''}`}
+                onClick={() => setActiveTab('academy')}
+              >
+                <span className={styles.navIcon}>📚</span>
+                <span>My Academy</span>
+              </button>
+              
+              <button 
+                className={`${styles.navItem} ${activeTab === 'orders' ? styles.navItemActive : ''}`}
+                onClick={() => setActiveTab('orders')}
+              >
+                <span className={styles.navIcon}>📦</span>
+                <span>My Orders</span>
+              </button>
+            </>
           )}
           
           {role === "trainer" && (
@@ -168,7 +208,10 @@ export default function DashboardPage() {
             </button>
           )}
           
-          <button className={styles.navItem}>
+          <button 
+            className={`${styles.navItem} ${activeTab === 'settings' ? styles.navItemActive : ''}`}
+            onClick={() => setActiveTab('settings')}
+          >
             <span className={styles.navIcon}>🔧</span>
             <span>Settings</span>
           </button>
@@ -195,7 +238,32 @@ export default function DashboardPage() {
             <div className={styles.headerSub}>Platform access established securely.</div>
           </div>
           <div className={styles.headerRight}>
-            <button className={styles.notifBtn}>🔔</button>
+            <div className={styles.notifContainer}>
+              <button className={styles.notifBtn} onClick={() => setShowNotifs(!showNotifs)}>
+                🔔
+                {unreadCount > 0 && <span className={styles.notifBadge}>{unreadCount}</span>}
+              </button>
+              
+              {showNotifs && (
+                <div className={styles.notifDropdown}>
+                  <div className={styles.notifHeader}>
+                    <h3>Notifications</h3>
+                    <button className={styles.notifClearBtn} onClick={() => setNotifs(notifs.map(n => ({...n, read: true})))}>Mark all read</button>
+                  </div>
+                  <div className={styles.notifList}>
+                    {notifs.map(n => (
+                      <div key={n.id} className={styles.notifItem} style={{ opacity: n.read ? 0.5 : 1 }}>
+                        <span className={styles.notifItemIcon}>{n.icon}</span>
+                        <div className={styles.notifItemContent}>
+                          <span className={styles.notifItemTitle}>{n.title}</span>
+                          <span className={styles.notifItemTime}>{n.time}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
             <div className={styles.userChip}>
               <div className={styles.userAvatar}>
                 {role === "admin" ? "AD" : role === "trainer" ? "TR" : "LR"}
@@ -212,12 +280,14 @@ export default function DashboardPage() {
 
         {/* CONTENT AREA */}
         <div className={styles.content}>
-          <h1 className={styles.pageHeading}>Overview</h1>
-          <p className={styles.pageDesc}>Here is your daily summary and platform telemetry.</p>
+          {activeTab === 'overview' ? (
+            <>
+              <h1 className={styles.pageHeading}>Overview</h1>
+              <p className={styles.pageDesc}>Here is your daily summary and platform telemetry.</p>
 
-          {/* LEARNER VIEW */}
-          {role === "learner" && (
-            <div className={styles.gridFade}>
+              {/* LEARNER VIEW */}
+              {role === "learner" && (
+                <div className={styles.gridFade}>
               <div className={styles.metricsRow}>
                 <div className={styles.metricCard}>
                   <div className={styles.metricHeader}>
@@ -254,39 +324,9 @@ export default function DashboardPage() {
               </div>
 
               <div className={styles.split}>
-                <div className={styles.panel}>
-                  <h3 className={styles.panelTitle}>📚 Enrolled Programs</h3>
-                  <p className={styles.panelDesc}>Complete modules to refine form leverage.</p>
+                {/* Enrolled Programs moved to My Academy tab */}
 
-                  <div className={styles.courseCard}>
-                    <div className={styles.courseMeta}>
-                      <span className={styles.courseCategory}>BIOMECHANICS</span>
-                      <span className={styles.courseLevel}>Intermediate</span>
-                    </div>
-                    <h4 className={styles.courseTitle}>Deep Squat Torque Optimization</h4>
-                    <div className={styles.progressContainer}>
-                      <div className={styles.progressBarBg}>
-                        <div className={styles.progressBar} style={{ width: "64%" }}></div>
-                      </div>
-                      <div className={styles.progressLabel}>64% Complete</div>
-                    </div>
-                    <div>
-                      <div className={`${styles.lessonItem} ${styles.lessonDone}`}>
-                        <span>✓ Lesson 1: Femur to Torso Ratio</span>
-                        <span className={styles.lessonDur}>8 min</span>
-                      </div>
-                      <div 
-                        className={`${styles.lessonItem} ${styles.lessonActive}`}
-                        onClick={() => setActiveLesson({ title: "Ankle Dorsiflexion Mechanics", course: "Deep Squat Torque", duration: "12 min" })}
-                      >
-                        <span>▶ Lesson 2: Ankle Dorsiflexion</span>
-                        <span className={styles.lessonDur}>12 min</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.panel}>
+                <div className={styles.panel} style={{ flex: 1 }}>
                   <h3 className={styles.panelTitle}>🧬 Intake Profile</h3>
                   <p className={styles.panelDesc}>Current adaptation goals</p>
                   
@@ -675,6 +715,158 @@ export default function DashboardPage() {
               </div>
             </div>
           )}
+          </>
+          ) : activeTab === 'orders' ? (
+            <div className={styles.gridFade}>
+              <h1 className={styles.pageHeading}>My Orders</h1>
+              <p className={styles.pageDesc}>Track your past and active shipments.</p>
+              
+              <div className={styles.panel} style={{ marginTop: '2rem' }}>
+                <h3 className={styles.panelTitle}>🛍️ Full Order History</h3>
+                <p className={styles.panelDesc}>Every purchase made through the FitMind AI platform.</p>
+                
+                <div className={styles.tableWrap}>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {storeOrders.length > 0 ? storeOrders.map(order => (
+                        <tr key={order.id}>
+                          <td><span className={styles.monoCode}>{order.id}</span></td>
+                          <td>{order.date || 'N/A'}</td>
+                          <td>{order.item}</td>
+                          <td>{order.total || 'N/A'}</td>
+                          <td>
+                            <span className={`${styles.labelPill} ${order.status === 'Shipped' ? styles.statusShipped : order.status === 'Processing' ? styles.statusProcessing : styles.statusDelivered}`}>{order.status}</span>
+                          </td>
+                        </tr>
+                      )) : (
+                        <tr>
+                          <td colSpan={5} style={{ textAlign: 'center', padding: '2rem', color: 'rgba(255,255,255,0.4)' }}>
+                            No orders found.
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          ) : activeTab === 'academy' ? (
+            <div className={styles.gridFade}>
+              <h1 className={styles.pageHeading}>My Academy</h1>
+              <p className={styles.pageDesc}>Your biomechanics library and enrolled programs.</p>
+              
+              <div className={styles.panel} style={{ marginTop: '2rem' }}>
+                <h3 className={styles.panelTitle}>📚 Enrolled Programs</h3>
+                <p className={styles.panelDesc}>Complete modules to refine form leverage.</p>
+
+                <div className={styles.courseCard}>
+                  <div className={styles.courseMeta}>
+                    <span className={styles.courseCategory}>BIOMECHANICS</span>
+                    <span className={styles.courseLevel}>Intermediate</span>
+                  </div>
+                  <h4 className={styles.courseTitle}>Deep Squat Torque Optimization</h4>
+                  <div className={styles.progressContainer}>
+                    <div className={styles.progressBarBg}>
+                      <div className={styles.progressBar} style={{ width: "64%" }}></div>
+                    </div>
+                    <div className={styles.progressLabel}>64% Complete</div>
+                  </div>
+                  <div>
+                    <div className={`${styles.lessonItem} ${styles.lessonDone}`}>
+                      <span>✓ Lesson 1: Femur to Torso Ratio</span>
+                      <span className={styles.lessonDur}>8 min</span>
+                    </div>
+                    <div 
+                      className={`${styles.lessonItem} ${styles.lessonActive}`}
+                      onClick={() => setActiveLesson({ title: "Ankle Dorsiflexion Mechanics", course: "Deep Squat Torque", duration: "12 min" })}
+                    >
+                      <span>▶ Lesson 2: Ankle Dorsiflexion</span>
+                      <span className={styles.lessonDur}>12 min</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : activeTab === 'settings' ? (
+            <div className={styles.gridFade}>
+              <h1 className={styles.pageHeading}>Settings</h1>
+              <p className={styles.pageDesc}>Manage your profile, preferences, and security.</p>
+              
+              <div className={styles.settingsGrid}>
+                {/* Profile Section */}
+                <div className={styles.settingsSection}>
+                  <h3 className={styles.settingsTitle}>👤 Profile Details</h3>
+                  <div className={styles.formGroup}>
+                    <label className={styles.formLabel}>Full Name</label>
+                    <input type="text" className={styles.formInput} defaultValue={role === "admin" ? "System Admin" : role === "trainer" ? "Donovan Barker" : "Alex Johnson"} />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label className={styles.formLabel}>Email Address</label>
+                    <input type="email" className={styles.formInput} defaultValue={role === "admin" ? "admin@fitmind.ai" : "athlete@example.com"} />
+                  </div>
+                  <button className={styles.settingsSaveBtn} onClick={() => triggerToast("Profile updated successfully!")}>Save Profile</button>
+                </div>
+
+                {/* Preferences Section */}
+                <div className={styles.settingsSection}>
+                  <h3 className={styles.settingsTitle}>⚙️ Preferences</h3>
+                  
+                  <div className={styles.toggleRow}>
+                    <div className={styles.toggleInfo}>
+                      <span className={styles.toggleLabel}>Email Notifications</span>
+                      <span className={styles.toggleDesc}>Receive daily metric summaries.</span>
+                    </div>
+                    <div className={`${styles.toggleSwitch} ${settings.emailAlerts ? styles.active : ''}`} onClick={() => setSettings({...settings, emailAlerts: !settings.emailAlerts})}>
+                      <div className={styles.toggleSwitchKnob}></div>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.toggleRow}>
+                    <div className={styles.toggleInfo}>
+                      <span className={styles.toggleLabel}>SMS Alerts</span>
+                      <span className={styles.toggleDesc}>Text messages for live sessions.</span>
+                    </div>
+                    <div className={`${styles.toggleSwitch} ${settings.smsAlerts ? styles.active : ''}`} onClick={() => setSettings({...settings, smsAlerts: !settings.smsAlerts})}>
+                      <div className={styles.toggleSwitchKnob}></div>
+                    </div>
+                  </div>
+
+                  <div className={styles.toggleRow}>
+                    <div className={styles.toggleInfo}>
+                      <span className={styles.toggleLabel}>Auto-Play Videos</span>
+                      <span className={styles.toggleDesc}>Start academy videos automatically.</span>
+                    </div>
+                    <div className={`${styles.toggleSwitch} ${settings.autoPlay ? styles.active : ''}`} onClick={() => setSettings({...settings, autoPlay: !settings.autoPlay})}>
+                      <div className={styles.toggleSwitchKnob}></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Security Section */}
+                <div className={styles.settingsSection} style={{ gridColumn: "1 / -1" }}>
+                  <h3 className={styles.settingsTitle}>🔒 Security</h3>
+                  <div className={styles.formGroup} style={{ maxWidth: '400px' }}>
+                    <label className={styles.formLabel}>New Password</label>
+                    <input type="password" className={styles.formInput} placeholder="••••••••" />
+                  </div>
+                  <div className={styles.formGroup} style={{ maxWidth: '400px' }}>
+                    <label className={styles.formLabel}>Confirm Password</label>
+                    <input type="password" className={styles.formInput} placeholder="••••••••" />
+                  </div>
+                  <button className={styles.settingsSaveBtn} onClick={() => triggerToast("Password securely changed!")}>Update Password</button>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
       </main>
 

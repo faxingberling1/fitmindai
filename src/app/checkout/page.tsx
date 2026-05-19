@@ -144,6 +144,25 @@ export default function CheckoutPage() {
     // Simulate API call
     await new Promise(res => setTimeout(res, 2000));
     const orderId = `FM-${Date.now().toString(36).toUpperCase()}`;
+    
+    // -- NEW: Save order to localStorage for dashboard integration --
+    const itemsDesc = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
+    const newOrder = {
+      id: orderId,
+      date: new Date().toISOString().split('T')[0],
+      item: itemsDesc,
+      total: `$${total.toFixed(2)}`,
+      status: 'Processing'
+    };
+    try {
+      const existingOrdersRaw = localStorage.getItem('fitmind_orders');
+      const existingOrders = existingOrdersRaw ? JSON.parse(existingOrdersRaw) : [];
+      localStorage.setItem('fitmind_orders', JSON.stringify([newOrder, ...existingOrders]));
+    } catch(e) {
+      console.error("Could not save order to dashboard state", e);
+    }
+    // ---------------------------------------------------------------
+
     localStorage.removeItem('fitmind_cart');
     window.dispatchEvent(new Event('cartUpdate'));
     router.push(`/order-confirmation?orderId=${orderId}&total=${total.toFixed(2)}&email=${encodeURIComponent(contact.email)}`);

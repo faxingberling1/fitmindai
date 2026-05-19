@@ -22,6 +22,56 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  // FAQ state
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
+  const faqs = [
+    {
+      question: "How does the Biomechanics Audit work?",
+      answer: "When you upgrade to the Pro Athlete or Elite Mentorship tier, you gain the ability to submit your training footage through the Dashboard. Coach Donovan will analyze your leverage, joint angles, and neural recruitment patterns using our proprietary telemetry overlay, returning a comprehensive breakdown within 48 hours."
+    },
+    {
+      question: "Can I upgrade or downgrade my subscription at any time?",
+      answer: "Absolutely. You can manage your active platform access tier directly from the 'Subscription Management' panel in your Dashboard. Upgrades take effect immediately (pro-rated), while downgrades apply at the start of your next billing cycle."
+    },
+    {
+      question: "What is the shipping time for FitMind AI merchandise?",
+      answer: "Standard shipping typically takes 5–7 business days within the continental US. Express options (2–3 days) and Overnight delivery are available at checkout. You can track your real-time fulfillment status under the 'My Orders' tab in your Dashboard."
+    },
+    {
+      question: "Does the Academy include beginner-friendly programs?",
+      answer: "Yes. While FitMind AI is built for peak neural and hypertrophic adaptation, the Academy includes modules spanning from 'Foundational Lifting Mechanics' for beginners to 'Cellular Energetics & Advanced Torque' for elite powerlifters."
+    },
+    {
+      question: "I am a personal trainer. Can I use FitMind AI for my clients?",
+      answer: "Yes! Our 'Trainer Hub' is specifically designed for coaches. It allows you to track your Client Roster, log diagnostic notes, monitor compliance, and manage your payouts. Contact support for volume licensing."
+    },
+    {
+      question: "How do I download the FitMind AI mobile app?",
+      answer: "The FitMind AI mobile companion application is currently in closed beta and will be publicly available in the near future. Once launched, an official announcement will be made on the website and all active members will be notified to download it."
+    },
+    {
+      question: "Are custom meal plans included in the subscription?",
+      answer: "Macronutrient guidance and cellular energetics protocols are included in the Pro Athlete tier. However, fully customized day-by-day meal plans and direct nutritional coaching require the Elite Mentorship tier."
+    },
+    {
+      question: "Is there a refund policy if I am not satisfied?",
+      answer: "Yes, we offer a 14-day money-back guarantee for all digital subscriptions if you haven't completed more than 20% of the Academy modules. Physical merchandise can be returned within 30 days if unworn and in original packaging."
+    },
+    {
+      question: "How often are new training modules added to the Academy?",
+      answer: "Coach Donovan and our scientific advisory board release new biomechanics and neural adaptation modules on the 1st of every month. Elite members get 7-day early access to all new content."
+    },
+    {
+      question: "Do you offer international shipping for physical merchandise?",
+      answer: "Yes, we ship globally! International shipping rates and times are calculated at checkout. Please note that customs duties and import taxes are the responsibility of the buyer."
+    }
+  ];
+
   // Generate CAPTCHA values on mount
   useEffect(() => {
     generateCaptcha();
@@ -221,6 +271,32 @@ export default function ContactPage() {
               </div>
             </div>
 
+          </div>
+        </section>
+
+        {/* In-Depth FAQ Section */}
+        <section className={styles.faqSection}>
+          <div className={styles.faqHeader}>
+            <span className={styles.badge}>Platform Support</span>
+            <h2 className="heading-md">Frequently Asked <span className="text-gradient">Questions</span></h2>
+            <p className="text-gray" style={{ marginTop: '1rem' }}>Find immediate answers regarding subscriptions, physical fulfillment, and coaching methodologies.</p>
+          </div>
+          <div className={styles.faqGrid}>
+            {faqs.map((faq, index) => (
+              <div 
+                key={index} 
+                className={`${styles.faqItem} ${openFaq === index ? styles.open : ''}`}
+                onClick={() => toggleFaq(index)}
+              >
+                <div className={styles.faqQuestion}>
+                  <span>{faq.question}</span>
+                  <span className={styles.faqIcon}>+</span>
+                </div>
+                <div className={styles.faqAnswer}>
+                  {faq.answer}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 

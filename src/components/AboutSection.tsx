@@ -14,7 +14,7 @@ export default function AboutSection() {
         <div className={styles.textContent}>
           <h2 className="heading-lg">An Educational Hub & <span className="text-gradient">Trainer Platform</span></h2>
           <p className="text-lg">
-            We believe in physical precision. FitMind AI is built for learners who want to master exactly how to execute exercises, optimize hypertrophy, and prevent injuries. Donovan Barker trains and mentors individuals directly through the ecosystem, teaching correct kinetic form and form biomechanics.
+            We believe in physical precision. FitMind AI is built for learners who want to master exactly how to execute exercises, optimize hypertrophy, and prevent injuries. Donovan Barker and his team of certified NASM trainers train and mentor individuals directly through the ecosystem, teaching correct kinetic form and form biomechanics.
           </p>
           <p className="text-lg">
             Simultaneously, we provide a premium hosting ground for personal coaches. FitMind AI delivers a secure, next-generation business platform where professional trainers can register to host training logs, network with their followers, and scale their coaching business.

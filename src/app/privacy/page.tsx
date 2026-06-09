@@ -50,6 +50,22 @@ export default function PrivacyPage() {
             </p>
           </div>
 
+          <div className={styles.section}>
+            <h2>5. SMS/Text Messaging Privacy</h2>
+            <p>
+              (FitMindAI) collects and uses your mobile phone number when you voluntarily provide it to receive SMS/MMS notifications, reminders, workout updates, progress alerts, customer support, and occasional service-related offers.
+            </p>
+            <p>
+              We use this information solely to deliver the messages described in our SMS campaign. No mobile information, including phone numbers, will be shared with third parties or affiliates for marketing or promotional purposes. All other categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties except as necessary with our SMS service providers (such as Zoom) strictly for the purpose of transmitting your messages.
+            </p>
+            <p>
+              Message and data rates may apply. You can opt out at any time by replying STOP to any message. For more information, reply HELP or visit our full Privacy Policy.
+            </p>
+            <p>
+              We do not sell, rent, or trade your personal information, including phone numbers, to any third parties.
+            </p>
+          </div>
+
           <div className={styles.backRow}>
             <Link href="/" className="btn-secondary">
               ← Return Home

@@ -2,22 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function proxy(req: NextRequest) {
-  // Allow access to the custom auth route itself so we don't cause a redirect loop
-  if (req.nextUrl.pathname.startsWith('/access')) {
-    return NextResponse.next();
-  }
-
-  // Check for the global lock cookie set by the server action
-  const authCookie = req.cookies.get('fitmind_global_lock');
-
-  // If the cookie is missing or invalid, redirect to the custom gatekeeper
-  if (!authCookie || authCookie.value !== 'unlocked') {
-    const url = req.nextUrl.clone();
-    url.pathname = '/access';
-    return NextResponse.redirect(url);
-  }
-
-  // Otherwise, user is unlocked, let them proceed
+  // Disable the credential screen redirect and allow all access
   return NextResponse.next();
 }
 
